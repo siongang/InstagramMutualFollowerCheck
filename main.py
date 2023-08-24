@@ -27,7 +27,8 @@ except TimeoutException:
     input = input('input username to continue or reset() to log into a different account')
     
     if input == "reset()":
-        utils.reset()
+        utils.reset(driver)
+        print("reset")
         sleep(3)
         utils.start_web(driver)
         log.login(driver)
@@ -61,7 +62,7 @@ utils.scroll_down(driver, parse_following.html_element)
 client_content = parse_following.save_html_content(driver)
 
 # save html content to file
-file_path = "html_content.html"
+file_path = "InstagramMutualFollowerCheck/html_content.html"
 utils.save_file(client_content, file_path)
 
 # list of users that the client follows

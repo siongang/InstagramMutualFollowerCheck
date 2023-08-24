@@ -9,6 +9,7 @@ from time import sleep
 
 
 def start_web(driver):
+    print("start web")
     # set domain to instagram
     driver.get("https://www.instagram.com/")
     # load cookies for login credentials
@@ -17,9 +18,9 @@ def start_web(driver):
     driver.get("https://www.instagram.com/")
 
 
-def reset():
+def reset(driver):
      # Specify the path to the cookies.pkl file
-    cookies_file_path = 'cookies.pkl'
+    cookies_file_path = 'InstagramMutualFollowerCheck/cookies.pkl'
     # Check if the cookies.pkl file exists
     if os.path.exists(cookies_file_path):
         # Delete the cookies.pkl file
@@ -27,6 +28,8 @@ def reset():
         print("cookies.pkl file deleted.")
     else:
         print("cookies.pkl file does not exist.")
+    
+    driver.delete_all_cookies()
 
 
 def confirm_button(driver):
@@ -44,14 +47,14 @@ def confirm_button(driver):
 # load cookies for login credentials
 def add_cookie(driver):
     try:
-        if os.path.getsize('cookies.pkl') != 0:
-            with open('cookies.pkl', 'rb') as file:
+        if os.path.getsize('InstagramMutualFollowerCheck/cookies.pkl') != 0:
+            with open('InstagramMutualFollowerCheck/cookies.pkl', 'rb') as file:
                 cookies = pickle.load(file)
                 print("Loaded cookies:", cookies)
             for cookie in cookies:
                 driver.add_cookie(cookie)
     except:
-        with open('cookies.pkl','wb') as file:
+        with open('InstagramMutualFollowerCheck/cookies.pkl','wb') as file:
             pass
 
 
@@ -59,7 +62,7 @@ def add_cookie(driver):
 # Save cookies to a file
 def save_cookie(driver):
     cookies = driver.get_cookies()
-    with open('cookies.pkl', 'wb') as file:
+    with open('InstagramMutualFollowerCheck/cookies.pkl', 'wb') as file:
         pickle.dump(cookies, file)
 
 def delete(driver, text):
@@ -101,9 +104,10 @@ def scroll_down(driver, parent_div):
         # Check if new content has been loaded
         current_len = len(current_child_divs)
         print(current_len)
+        
         if current_len == prev_len:
             break  # No more new content
 
-      
         sleep(2)
+
         prev_len = current_len
