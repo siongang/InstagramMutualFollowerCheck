@@ -35,7 +35,7 @@ def login(driver):
     # if so, try login again
     # if not, webdriver is logged in
     try:
-        WebDriverWait(driver, 5).until(
+        WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.NAME, "verificationCode"))
         )
         auth_code(driver)

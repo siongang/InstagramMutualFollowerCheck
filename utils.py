@@ -35,7 +35,7 @@ def reset(driver):
 def confirm_button(driver):
     # confirm button
     try:
-        confirm_button = WebDriverWait(driver, 5).until(
+        confirm_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CLASS_NAME, "_acap"))
         )
         confirm_button.click()
